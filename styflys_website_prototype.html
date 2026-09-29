@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Styflys — Business Command Center</title>
+<style>
+:root{
+  --bg:#f7f6f1; --card:#fffdf9; --ink:#243238; --muted:#718087;
+  --primary:#2f7771; --primary2:#d9eee8; --gold:#d5a84b; --line:#e7e3da;
+  --peach:#f6dfd0; --lav:#e9e2f3; --green:#dcecdf;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+.app{display:flex;min-height:100vh}.side{width:245px;background:#203d3a;color:#eef8f4;padding:24px 16px;position:sticky;top:0;height:100vh}
+.logo{font-size:27px;font-weight:800;letter-spacing:-1px;padding:4px 10px 28px}.logo span{color:#e5bf67}
+.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:#c9ddd8;text-align:left;padding:12px 13px;border-radius:12px;font-size:14px;cursor:pointer}.nav button.active,.nav button:hover{background:#315a55;color:white}
+.sideBottom{position:absolute;bottom:20px;left:16px;right:16px;background:#294a46;padding:14px;border-radius:14px;font-size:12px;color:#cfe0dc}
+.main{flex:1;padding:28px 34px;max-width:1500px;margin:auto;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.eyebrow{color:var(--primary);font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}.title{font-size:29px;margin:4px 0;font-weight:750}.sub{color:var(--muted);font-size:14px}
+.actions{display:flex;gap:10px}.btn{border:1px solid var(--line);background:white;padding:10px 14px;border-radius:11px;font-weight:650;color:var(--ink);cursor:pointer}.btn.primary{background:var(--primary);color:white;border-color:var(--primary)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}.stat .label{font-size:12px;color:var(--muted)}.stat .num{font-size:25px;font-weight:750;margin:8px 0 3px}.up{font-size:12px;color:#4e8a62}.warn{color:#aa7940}
+.layout{display:grid;grid-template-columns:1.35fr .85fr;gap:16px;margin-top:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:19px}.cardHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.card h3{margin:0;font-size:16px}.link{color:var(--primary);font-size:12px;font-weight:700;cursor:pointer}
+.pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.stage{padding:14px;border-radius:14px;background:#f3f0e9}.stage:nth-child(2){background:var(--peach)}.stage:nth-child(3){background:var(--lav)}.stage:nth-child(4){background:#e2edf0}.stage:nth-child(5){background:var(--green)}.stage b{font-size:22px}.stage small{display:block;color:#68777c;margin-top:5px}
+.product{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.product:last-child{border-bottom:0}.pic{width:52px;height:62px;border-radius:12px;background:linear-gradient(145deg,#e7cdbd,#f7eee7);display:grid;place-items:center;font-size:24px}.product .name{font-weight:700}.product .meta{font-size:12px;color:var(--muted);margin-top:4px}.price{margin-left:auto;font-weight:750}
+.notice{display:flex;gap:12px;align-items:flex-start;background:#edf6f1;border-radius:14px;padding:13px;margin-top:14px}.dot{width:9px;height:9px;border-radius:50%;background:#4f9270;margin-top:5px}.notice strong{font-size:13px}.notice div{font-size:12px;color:#64756f;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}td:last-child{text-align:right}.badge{padding:5px 8px;border-radius:20px;font-size:11px;font-weight:700;background:#edf2ef}.badge.orange{background:#f7eadb;color:#99682e}.badge.green{background:#e3f0e5;color:#4c8059}
+.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(135deg,#edf7f2,#fbefe5 55%,#f0e9f5);border-radius:24px;padding:28px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.hero h2{font-size:27px;margin:7px 0}.hero p{color:#627276;max-width:600px;line-height:1.6}.heroArt{font-size:72px;padding:10px 30px}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field{background:#fbfaf6;border:1px solid var(--line);border-radius:12px;padding:12px}.field label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px}.field input,.field select{width:100%;border:0;background:transparent;outline:none;font-size:14px;color:var(--ink)}
+@media(max-width:900px){.side{width:76px}.logo{font-size:0}.logo:after{content:'S';font-size:28px}.nav button{font-size:0;text-align:center}.nav button:before{content:'•';font-size:22px}.main{padding:20px}.grid4{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.pipeline{grid-template-columns:repeat(2,1fr)}.heroArt{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="logo">sty<span>flys</span></div>
+  <div class="nav">
+    <button class="active" onclick="show('dashboard',this)">⌂ &nbsp; Command Center</button>
+    <button onclick="show('orders',this)">▣ &nbsp; Orders</button>
+    <button onclick="show('products',this)">◇ &nbsp; Products</button>
+    <button onclick="show('production',this)">⚙ &nbsp; Production</button>
+    <button onclick="show('inventory',this)">▤ &nbsp; Inventory</button>
+    <button onclick="show('finance',this)">₹ &nbsp; Auto Finance</button>
+    <button onclick="show('reports',this)">◫ &nbsp; Reports</button>
+  </div>
+  <div class="sideBottom"><b>Automation ON</b><br>Sales, purchase, stock, GST & accounting entries sync automatically.</div>
+</aside>
+
+<main class="main">
+<section id="dashboard" class="page active">
+<div class="top"><div><div class="eyebrow">Styflys Business OS</div><div class="title">Good morning, Geetanjali</div><div class="sub">Your business at a glance — from material purchase to customer delivery.</div></div><div class="actions"><button class="btn">Export</button><button class="btn primary" onclick="show('orders')">+ New Order</button></div></div>
+<div class="grid4">
+<div class="stat"><div class="label">Today's Sales</div><div class="num">₹1,28,450</div><div class="up">↑ 12.4% vs yesterday</div></div>
+<div class="stat"><div class="label">Orders to Pack</div><div class="num">18</div><div class="warn">6 priority</div></div>
+<div class="stat"><div class="label">Inventory Value</div><div class="num">₹8.42L</div><div class="up">Auto-calculated</div></div>
+<div class="stat"><div class="label">Net Profit · MTD</div><div class="num">₹2.16L</div><div class="up">Live from accounts</div></div>
+</div>
+<div class="layout">
+<div>
+<div class="card"><div class="cardHead"><h3>Order journey</h3><span class="link">View all →</span></div>
+<div class="pipeline"><div class="stage"><b>42</b><small>Received</small></div><div class="stage"><b>18</b><small>To Pack</small></div><div class="stage"><b>11</b><small>Packed</small></div><div class="stage"><b>7</b><small>Dispatched</small></div><div class="stage"><b>96%</b><small>Delivered</small></div></div>
+<div class="notice"><span class="dot"></span><div><strong>Only manual workflow: Pack → Dispatch → Delivery</strong><br>Everything before and after this is connected to inventory, purchases, sales and accounting automatically.</div></div>
+</div>
+<div class="card" style="margin-top:16px"><div class="cardHead"><h3>Recent orders</h3><span class="link" onclick="show('orders')">Open orders →</span></div>
+<table><tr><th>Order</th><th>Customer</th><th>Product</th><th>Status</th><th>Amount</th></tr>
+<tr><td>#SF-1048</td><td>Meera S.</td><td>Floral Co-ord Set</td><td><span class="badge orange">To Pack</span></td><td>₹2,499</td></tr>
+<tr><td>#SF-1047</td><td>Ananya K.</td><td>Ivory Kurta Set</td><td><span class="badge green">Dispatched</span></td><td>₹3,199</td></tr>
+<tr><td>#SF-1046</td><td>Riya M.</td><td>Indigo Dress</td><td><span class="badge">Received</span></td><td>₹1,899</td></tr>
+</table></div>
+</div>
+<div>
+<div class="card"><div class="cardHead"><h3>Top products</h3><span class="link">Manage →</span></div>
+<div class="product"><div class="pic">👗</div><div><div class="name">Floral Co-ord Set</div><div class="meta">SKU SF-CO-001 · 38 sold</div></div><div class="price">₹2,499</div></div>
+<div class="product"><div class="pic">🥻</div><div><div class="name">Ivory Kurta Set</div><div class="meta">SKU SF-KU-014 · 26 sold</div></div><div class="price">₹3,199</div></div>
+<div class="product"><div class="pic">👚</div><div><div class="name">Indigo Everyday Dress</div><div class="meta">SKU SF-DR-008 · 21 sold</div></div><div class="price">₹1,899</div></div>
+</div>
+<div class="card" style="margin-top:16px"><div class="cardHead"><h3>Auto-booked today</h3></div><div class="sub">Material purchase → production cost → stock → sale → COGS → profit → ledgers.</div><div style="margin-top:15px;font-size:13px;line-height:2"><b>Purchase</b> ₹34,800<br><b>Production cost</b> ₹18,420<br><b>Sales</b> ₹1,28,450<br><b>Gross profit</b> ₹75,230</div></div>
+</div></div>
+</section>
+
+<section id="orders" class="page">
+<div class="top"><div><div class="eyebrow">Operations</div><div class="title">Orders</div><div class="sub">Keep the human work simple. The system handles the accounting trail.</div></div><button class="btn primary">+ Add order</button></div>
+<div class="card"><table><tr><th>Order</th><th>Customer</th><th>Item</th><th>Amount</th><th>Stage</th><th>Action</th></tr>
+<tr><td>#SF-1048</td><td>Meera S.</td><td>Floral Co-ord Set</td><td>₹2,499</td><td><span class="badge orange">To Pack</span></td><td><button class="btn">Pack</button></td></tr>
+<tr><td>#SF-1047</td><td>Ananya K.</td><td>Ivory Kurta Set</td><td>₹3,199</td><td><span class="badge green">Dispatched</span></td><td>✓</td></tr>
+<tr><td>#SF-1046</td><td>Riya M.</td><td>Indigo Dress</td><td>₹1,899</td><td><span class="badge">Received</span></td><td><button class="btn">Process</button></td></tr>
+</table></div>
+</section>
+
+<section id="products" class="page">
+<div class="hero"><div><div class="eyebrow">Product master</div><h2>Sell what you make.</h2><p>Create a product once. Link its material, production cost, selling price and SKU. When it sells, the accounting and inventory trail follows automatically.</p><button class="btn primary">+ Create product</button></div><div class="heroArt">👗</div></div>
+<div class="card"><div class="cardHead"><h3>Sample product — Floral Co-ord Set</h3><span class="badge green">Active</span></div><div class="formgrid"><div class="field"><label>SKU</label><input value="SF-CO-001"></div><div class="field"><label>Selling price</label><input value="₹2,499"></div><div class="field"><label>Material source</label><input value="Local supplier — Delhi"></div><div class="field"><label>Production</label><input value="In-house manufacturing"></div><div class="field"><label>Fabric + trims cost</label><input value="₹780"></div><div class="field"><label>Estimated production cost</label><input value="₹1,050"></div></div></div>
+</section>
+
+<section id="production" class="page">
+<div class="top"><div><div class="eyebrow">Manufacturing</div><div class="title">Production</div><div class="sub">Purchase raw material locally, manufacture the product, and let stock value update automatically.</div></div><button class="btn primary">+ Production batch</button></div>
+<div class="layout"><div class="card"><div class="cardHead"><h3>Current batch</h3><span class="badge green">In Production</span></div><div class="formgrid"><div class="field"><label>Product</label><input value="Floral Co-ord Set"></div><div class="field"><label>Quantity</label><input value="50 pcs"></div><div class="field"><label>Fabric consumed</label><input value="92 metres"></div><div class="field"><label>Material cost</label><input value="₹39,100"></div></div><div class="notice"><span class="dot"></span><div><strong>Auto accounting</strong><br>Raw material stock reduces and finished-goods stock increases when the batch is completed. Production cost flows into inventory valuation.</div></div></div>
+<div class="card"><h3>Material purchase</h3><div style="margin-top:14px;line-height:2;font-size:13px">Supplier: <b>Local Textile Market</b><br>Fabric: <b>92 m × ₹380</b><br>Trims: <b>₹4,140</b><br>Total: <b>₹39,100</b><br><span class="badge green">Purchase ledger updated</span></div></div></div>
+</section>
+
+<section id="inventory" class="page"><div class="top"><div><div class="eyebrow">Stock control</div><div class="title">Inventory</div><div class="sub">Raw material + work in progress + finished goods in one view.</div></div></div><div class="grid4"><div class="stat"><div class="label">Raw Material</div><div class="num">₹3.18L</div></div><div class="stat"><div class="label">WIP</div><div class="num">₹86K</div></div><div class="stat"><div class="label">Finished Goods</div><div class="num">₹4.38L</div></div><div class="stat"><div class="label">Low Stock SKUs</div><div class="num">7</div></div></div></section>
+
+<section id="finance" class="page"><div class="hero"><div><div class="eyebrow">Auto Finance</div><h2>Your books build themselves.</h2><p>Sales, purchases, inventory movements and cost of goods sold feed the financial statements. Manual accounting entry is minimized.</p></div><div class="heroArt">₹</div></div><div class="grid4"><div class="stat"><div class="label">Revenue · MTD</div><div class="num">₹18.42L</div></div><div class="stat"><div class="label">COGS · MTD</div><div class="num">₹10.96L</div></div><div class="stat"><div class="label">Gross Profit</div><div class="num">₹7.46L</div></div><div class="stat"><div class="label">Cash + Bank</div><div class="num">₹6.18L</div></div></div><div class="card" style="margin-top:16px"><div class="cardHead"><h3>Financial statements</h3><span class="link">Export Excel / PDF →</span></div><table><tr><th>Statement</th><th>Period</th><th>Status</th></tr><tr><td>Profit & Loss</td><td>September 2026</td><td><span class="badge green">Auto-generated</span></td></tr><tr><td>Balance Sheet</td><td>As on today</td><td><span class="badge green">Auto-generated</span></td></tr><tr><td>Cash Flow</td><td>September 2026</td><td><span class="badge green">Auto-generated</span></td></tr><tr><td>GST / Tax reports</td><td>Current period</td><td><span class="badge green">Data ready</span></td></tr></table></div></section>
+
+<section id="reports" class="page"><div class="top"><div><div class="eyebrow">Business intelligence</div><div class="title">Reports</div><div class="sub">See what is selling, what is costing you, and where cash is moving.</div></div></div><div class="layout"><div class="card"><h3>Monthly snapshot</h3><div style="font-size:38px;font-weight:800;margin:22px 0">₹18.42L</div><div class="sub">Sales this month</div><div style="height:8px;background:#ece9e2;border-radius:9px;margin:20px 0"><div style="width:74%;height:100%;background:#6c9d94;border-radius:9px"></div></div><div class="sub">74% of monthly target</div></div><div class="card"><h3>Quick reports</h3><div style="display:grid;gap:9px;margin-top:15px"><button class="btn">Sales by product →</button><button class="btn">Purchase register →</button><button class="btn">Stock valuation →</button><button class="btn">P&L →</button><button class="btn">Balance Sheet →</button></div></div></div></section>
+</main>
+</div>
+<script>
+function show(id,el){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+ if(el) el.classList.add('active');
+ else document.querySelectorAll('.nav button').forEach(b=>{if(b.getAttribute('onclick')?.includes("'"+id+"'"))b.classList.add('active')});
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
